@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dartolz Global Limited | Education, Technology & Teacher Training</title>
+<meta name="description" content="Dartolz Global Limited, founded in 2008, empowers children and schools in Nigeria through mathematics, technology skills, digital school solutions, soft skills, teacher training and school capacity development.">
+<link rel="canonical" href="https://USERNAME.github.io/REPO/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dartolz Global Limited">
+<meta property="og:title" content="Dartolz Global Limited | Education, Technology & Teacher Training">
+<meta property="og:description" content="Empowering every child in the school system using technology. Founded 2008, RC 1007747.">
+<meta property="og:url" content="https://USERNAME.github.io/REPO/">
+<meta property="og:image" content="https://USERNAME.github.io/REPO/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a2a5e">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Dartolz Global Limited",
+  "url": "https://USERNAME.github.io/REPO/",
+  "logo": "logo.png",
+  "foundingDate": "2008",
+  "founder": { "@type": "Person", "name": "Tolulope Dada" },
+  "identifier": "RC 1007747",
+  "description": "Education, technology and teacher training company empowering every child in the school system using technology.",
+  "makesOffer": [
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mathematics: Finger/Abacus and Mental Mathematics" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tech Skills: Coding, Robotics, AI, IoT, Graphics Design, Web Design" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "The Digital School: Klacify App, CBT, Online School, LMS" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Soft Skills Training" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Teachers Training Academy (TTA)" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "School Capacity Development (SCD) Trainings" } }
+  ]
+}
+</script>
+<style>
+  :root {
+    --blue: #0a2a5e;
+    --blue-deep: #06162f;
+    --blue-soft: #eef4fc;
+    --accent: #f5a623;
+    --accent-deep: #d98a0b;
+    --ink: #1b2333;
+    --muted: #5a6478;
+    --line: #e3e9f3;
+    --white: #ffffff;
+    --radius: 16px;
+    --shadow: 0 10px 30px rgba(10, 42, 94, 0.10);
+    --font: "Poppins", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --header-h: 64px;
+    --bottom-h: 72px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: var(--font);
+    color: var(--ink);
+    background: #f7f9fd;
+    line-height: 1.6;
+    font-size: 16px;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body.intro-on { overflow: hidden; }
+  img { display: block; max-width: 100%; }
+  a { color: var(--blue); }
+  h1, h2, h3 { line-height: 1.25; margin: 0 0 .5em; color: var(--blue); }
+  h1 { font-size: clamp(1.8rem, 6vw, 2.8rem); font-weight: 800; }
+  h2 { font-size: clamp(1.4rem, 4.5vw, 2rem); font-weight: 700; }
+  h3 { font-size: 1.1rem; font-weight: 600; }
+  p { margin: 0 0 1em; }
+  .container { width: min(1120px, 100% - 40px); margin: 0 auto; }
+  .eyebrow {
+    display: inline-block;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: .4rem;
+  }
+  .lead { color: var(--muted); max-width: 60ch; }
+
+  /* Buttons: large tap targets */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    font: inherit;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .15s ease, background .2s ease, color .2s ease;
+  }
+  .btn:active { transform: scale(.98); }
+  .btn-primary { background: var(--accent); color: var(--blue-deep); }
+  .btn-primary:hover { background: var(--accent-deep); color: var(--white); }
+  .btn-blue { background: var(--blue); color: var(--white); }
+  .btn-blue:hover { background: var(--blue-deep); }
+  .btn-whatsapp { background: #1ea952; color: var(--white); }
+  .btn-whatsapp:hover { background: #178a43; }
+  .btn-small { min-height: 46px; padding: 10px 20px; font-size: .95rem; }
+
+  /* ---------- Intro ---------- */
+  #intro {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--blue-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    animation: introOut .6s ease 3s forwards;
+    transition: opacity .6s ease, visibility .6s ease;
+  }
+  #intro.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+  @keyframes introOut {
+    to { opacity: 0; visibility: hidden; pointer-events: none; }
+  }
+  .intro-stage { position: relative; display: flex; align-items: center; justify-content: center; perspective: 900px; }
+  .glow {
+    position: absolute;
+    width: min(90vw, 460px);
+    height: min(90vw, 460px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,166,35,.45) 0%, rgba(245,166,35,.12) 45%, transparent 70%);
+    opacity: 0;
+    animation: glowIn 1s ease .2s forwards, glowPulse 1.6s ease-in-out 1.2s 1;
+  }
+  @keyframes glowIn { to { opacity: 1; } }
+  @keyframes glowPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: .7; }
+  }
+  .logo-3d {
+    transform-style: preserve-3d;
+    animation: enter3d 1.2s cubic-bezier(.2,.7,.2,1) .3s both;
+  }
+  .logo-sway {
+    transform-style: preserve-3d;
+    animation: sway3d 5s ease-in-out 1.5s infinite;
+  }
+  @keyframes enter3d {
+    from { opacity: 0; transform: rotateY(-80deg) rotateX(18deg) scale(.7); }
+    to { opacity: 1; transform: rotateY(0) rotateX(0) scale(1); }
+  }
+  @keyframes sway3d {
+    0%, 100% { transform: rotateY(-7deg) rotateX(3deg); }
+    50% { transform: rotateY(7deg) rotateX(-3deg); }
+  }
+  .logo-wrap { position: relative; width: min(62vw, 250px); overflow: hidden; }
+  .intro-logo { width: 100%; height: auto; display: block; }
+
+  /* Pointer tilt for header and footer logos (3D on the exact image) */
+  .tilt { display: inline-block; perspective: 400px; }
+  .tilt img { transition: transform .25s ease; will-change: transform; }
+  .sweep {
+    position: absolute;
+    top: -10%;
+    bottom: -10%;
+    left: -60%;
+    width: 40%;
+    background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,.6) 50%, transparent 100%);
+    transform: skewX(-20deg);
+    animation: sweep .9s ease-in-out 1.6s forwards;
+    pointer-events: none;
+  }
+  @keyframes sweep { to { left: 130%; } }
+  .skip-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: rgba(255,255,255,.55);
+    font-size: .8rem;
+    letter-spacing: .04em;
+  }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
+    background: rgba(255,255,255,.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); min-width: 0; }
+  .brand img { height: 40px; width: auto; }
+  .brand-name { font-weight: 700; font-size: .92rem; line-height: 1.15; }
+  .top-nav { display: none; }
+  .top-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .95rem;
+    color: var(--ink);
+  }
+  .top-nav a:hover { background: var(--blue-soft); color: var(--blue); }
+  .top-nav a[aria-current="page"] { background: var(--blue); color: var(--white); }
+
+  /* ---------- Bottom bar (phones) ---------- */
+  .bottom-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    height: calc(var(--bottom-h) + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--white);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -6px 20px rgba(10,42,94,.06);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .bottom-bar a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: .72rem;
+    font-weight: 500;
+    position: relative;
+  }
+  .bottom-bar svg { width: 24px; height: 24px; }
+  .bottom-bar a.is-current { color: var(--blue); font-weight: 600; }
+  .bottom-bar a.is-current::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 30%;
+    right: 30%;
+    height: 3px;
+    border-radius: 0 0 3px 3px;
+    background: var(--accent);
+  }
+
+  /* ---------- Main and pages ---------- */
+  main#app {
+    position: fixed;
+    top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+    bottom: calc(var(--bottom-h) + env(safe-area-inset-bottom, 0px));
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  .page { display: none; padding: 24px 0 28px; }
+  .page.active { display: block; animation: pageIn .35s ease; }
+  @keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .page-head { margin-bottom: 22px; }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: 1fr; }
+
+  /* Home hero */
+  .hero {
+    background: linear-gradient(160deg, var(--blue-deep) 0%, var(--blue) 75%);
+    color: var(--white);
+    border-radius: 22px;
+    padding: 30px 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+  }
+  .hero h1 { color: var(--white); }
+  .hero .eyebrow { color: var(--accent); }
+  .hero p { color: rgba(255,255,255,.85); }
+  .hero .btn { width: 100%; margin-top: 8px; }
+  .quick-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--ink);
+    min-height: 96px;
+    transition: transform .15s ease;
+    border-left: 4px solid var(--accent);
+  }
+  .quick-card:active { transform: scale(.98); }
+  .quick-card strong { color: var(--blue); font-size: 1.02rem; }
+  .quick-card span { color: var(--muted); font-size: .9rem; }
+  .section-title { font-size: 1rem; font-weight: 600; color: var(--blue); margin: 26px 0 12px; }
+
+  /* About */
+  .vision {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--blue);
+    border-left: 4px solid var(--accent);
+    padding-left: 16px;
+  }
+  .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 0; }
+  .fact { background: var(--blue-soft); border-radius: 12px; padding: 14px; }
+  .fact strong { display: block; color: var(--blue); font-size: 1.1rem; line-height: 1.2; }
+  .fact span { font-size: .8rem; color: var(--muted); }
+  .value-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .value-list li {
+    background: var(--blue-soft);
+    color: var(--blue);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: .9rem;
+    font-weight: 500;
+  }
+
+  /* Services */
+  .service-card { display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; }
+  .service-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--accent);
+  }
+  .service-num { font-size: .78rem; font-weight: 700; letter-spacing: .08em; color: var(--accent-deep); }
+  .service-card p { color: var(--muted); font-size: .95rem; margin: 0; flex: 1; }
+  .service-card .btn { width: 100%; }
+
+  /* Products */
+  .product-card { background: var(--blue); color: var(--white); border: 0; }
+  .product-card h3 { color: var(--white); }
+  .product-card p { color: rgba(255,255,255,.85); }
+
+  /* Departments */
+  .dept-card { border-left: 4px solid var(--blue); }
+  .dept-card h3 { margin: 0; }
+
+  /* Contact */
+  .contact-form { display: grid; gap: 14px; }
+  .contact-form label { display: grid; gap: 6px; font-weight: 500; font-size: .92rem; }
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    font: inherit;
+    font-size: 16px;
+    padding: 13px 15px;
+    border: 1.5px solid #cfd8e6;
+    border-radius: 12px;
+    background: var(--white);
+    color: var(--ink);
+    min-height: 52px;
+    width: 100%;
+  }
+  .contact-form textarea { min-height: 110px; resize: vertical; }
+  .contact-form input:focus,
+  .contact-form select:focus,
+  .contact-form textarea:focus { outline: 3px solid rgba(245,166,35,.45); border-color: var(--accent-deep); }
+  .form-actions { display: grid; gap: 12px; }
+  .form-actions .btn { width: 100%; }
+
+  /* Footer */
+  footer {
+    background: var(--blue-deep);
+    color: rgba(255,255,255,.8);
+    padding: 26px 22px;
+    margin-top: 8px;
+    border-radius: 18px;
+  }
+  footer img { height: 48px; width: auto; margin-bottom: 12px; }
+  footer p { margin: 0; font-size: .9rem; }
+  footer .foot-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 16px 0; }
+  footer .foot-links a { color: rgba(255,255,255,.85); text-decoration: none; font-size: .9rem; }
+  footer .foot-links a:hover { color: var(--accent); }
+  footer .copy { font-size: .8rem; color: rgba(255,255,255,.55); margin-top: 12px; }
+
+  /* ---------- Larger screens ---------- */
+  @media (min-width: 640px) {
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .hero .btn { width: auto; }
+  }
+  @media (min-width: 900px) {
+    .bottom-bar { display: none; }
+    .top-nav { display: flex; gap: 4px; }
+    main#app { bottom: 0; }
+    .page { padding: 36px 0 40px; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 28px; align-items: start; }
+    .form-actions { grid-template-columns: 1fr 1fr; }
+    .form-actions .btn { width: auto; }
+    footer { margin-top: 36px; }
+  }
+
+  /* ---------- Reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    #intro { display: none !important; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+<noscript>
+  <style>#intro { display: none !important; } body { overflow: auto; }</style>
+</noscript>
+</head>
+<body class="intro-on">
+
+<!-- Logo reveal intro -->
+<div id="intro" aria-hidden="true" title="Tap to skip">
+  <div class="intro-stage">
+    <div class="glow"></div>
+    <div class="logo-3d">
+      <div class="logo-sway">
+        <div class="logo-wrap">
+          <img class="intro-logo" src="logo.png" alt="">
+          <span class="sweep"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="skip-hint">Tap anywhere to skip</div>
+</div>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#home" class="brand" aria-label="Dartolz Global Limited, home">
+      <span class="tilt"><img class="tilt-img" src="logo.png" alt="Dartolz Global Limited logo"></span>
+      <span class="brand-name">Dartolz Global<br>Limited</span>
+    </a>
+    <nav class="top-nav" aria-label="Main">
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#about" data-nav="about">About</a>
+      <a href="#services" data-nav="services">Services</a>
+      <a href="#products" data-nav="products">Products</a>
+      <a href="#contact" data-nav="contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Pages -->
+<main id="app">
+
+  <!-- Home -->
+  <section class="page" id="page-home">
+    <div class="container">
+      <div class="hero">
+        <span class="eyebrow">Education &middot; Technology &middot; Teacher Training</span>
+        <h1>Empowering every child in the school system using technology</h1>
+        <p>Dartolz Global Limited has been building systems and platforms for the educational sector since 2008.</p>
+        <a href="#contact" class="btn btn-primary">Enrol or enquire</a>
+      </div>
+
+      <h2 class="section-title">Explore</h2>
+      <div class="grid grid-2">
+        <a href="#about" class="card quick-card"><strong>About us</strong><span>Our vision, mission and core values</span></a>
+        <a href="#services" class="card quick-card"><strong>Services</strong><span>Maths, tech skills, digital school and training</span></a>
+        <a href="#products" class="card quick-card"><strong>Products</strong><span>Books for pre-schoolers and exam candidates</span></a>
+        <a href="#departments" class="card quick-card"><strong>Departments</strong><span>The teams behind our work</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="page" id="page-about">
+    <div class="container">
+      <div class="page-head">
+        <span class="eyebrow">About us</span>
+        <h2>Who we are</h2>
+      </div>
+
+      <div class="card">
+        <h3>Our vision</h3>
+        <p class="vision">To facilitate and power people through the creative power of God.</p>
+        <h3>Our mission</h3>
+        <p>To be a force in the educational sector by empowering every child in the school system using technology.</p>
+        <p>To create systems and platforms for the rise of giants through the educational sector.</p>
+      </div>
+
+      <div class="facts">
+        <div class="fact"><strong>2008</strong><span>Year founded</span></div>
+        <div class="fact"><strong>RC 1007747</strong><span>Registration number</span></div>
+      </div>
+      <p style="margin-top:14px">Founded in 2008 by <strong>Mr Tolulope Dada</strong>.</p>
+
+      <h2 class="section-title">Core values</h2>
+      <ul class="value-list">
+        <li>Creativity</li>
+        <li>Accountability</li>
+        <li>Networking</li>
+        <li>Diligence</li>
+        <li>Loyalty / Integrity</li>
+        <li>Excellence</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="page" id="page-services">
+    <div class="container">
+      <div class="page-head">
+        <span class="eyebrow">What we do</span>
+        <h2>Our services</h2>
+        <p class="lead">Six areas where we help learners, teachers and schools grow.</p>
+      </div>
+      <div class="grid grid-3" id="services-grid"></div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="page" id="page-products">
+    <div class="container">
+      <div class="page-head">
+        <span class="eyebrow">Our books</span>
+        <h2>Products</h2>
+      </div>
+      <div class="grid grid-2">
+        <article class="card product-card">
+          <h3>Everyday Books for Pre-Schoolers</h3>
+          <p>Books designed for everyday learning at the pre-school level.</p>
+          <a href="#contact" class="btn btn-primary btn-small" style="margin-top:12px" data-enquire="Everyday Books for Pre-Schoolers">Enquire</a>
+        </article>
+        <article class="card product-card">
+          <h3>Klacify Books</h3>
+          <p>Books for WAEC, JAMB, NECO and GCE.</p>
+          <a href="#contact" class="btn btn-primary btn-small" style="margin-top:12px" data-enquire="Klacify Books">Enquire</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Departments -->
+  <section class="page" id="page-departments">
+    <div class="container">
+      <div class="page-head">
+        <span class="eyebrow">How we are organised</span>
+        <h2>Departments</h2>
+      </div>
+      <div class="grid grid-2">
+        <div class="card dept-card"><h3>Sales and Marketing</h3></div>
+        <div class="card dept-card"><h3>Finance</h3></div>
+        <div class="card dept-card"><h3>Operations</h3></div>
+        <div class="card dept-card"><h3>Research and Development</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="page" id="page-contact">
+    <div class="container contact-wrap">
+      <div>
+        <div class="page-head">
+          <span class="eyebrow">Get in touch</span>
+          <h2>Enrol or enquire</h2>
+          <p class="lead">Tell us what you need and we will get back to you.</p>
+        </div>
+      </div>
+      <div class="card" id="contact-slot">
+        <h3>Dartolz Global Limited</h3>
+        <p>RC 1007747</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="container">
+    <span class="tilt"><img class="tilt-img" src="logo.png" alt="Dartolz Global Limited logo"></span>
+    <p><strong>Dartolz Global Limited</strong><br>RC 1007747<br>Founded 2008 by Mr Tolulope Dada</p>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#products">Products</a>
+      <a href="#departments">Departments</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <p class="copy">&copy; <span id="year"></span> Dartolz Global Limited. All rights reserved.</p>
+  </footer>
+</main>
+
+<!-- Bottom bar (phones) -->
+<nav class="bottom-bar" aria-label="Primary">
+  <a href="#home" data-nav="home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+    Home
+  </a>
+  <a href="#about" data-nav="about">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="currentColor"/></svg>
+    About
+  </a>
+  <a href="#services" data-nav="services">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>
+    Services
+  </a>
+  <a href="#products" data-nav="products">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 0 4 21.5z"/><path d="M20 4.5A1.5 1.5 0 0 0 18.5 3H13v17h5.5a1.5 1.5 0 0 1 1.5 1.5z"/></svg>
+    Products
+  </a>
+  <a href="#contact" data-nav="contact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
+    Contact
+  </a>
+</nav>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- Settings ----------
+     Fill these in to enable the contact form.
+     whatsapp: country code and number, digits only, e.g. "2348012345678"
+     email:    e.g. "info@yourdomain.com"
+     Leave both empty and the form stays hidden. */
+  var CONTACT = { whatsapp: "", email: "" };
+
+  var SERVICES = [
+    { name: "Mathematics", detail: "Finger/Abacus and Mental Mathematics" },
+    { name: "Tech Skills", detail: "Coding, Robotics, AI, IoT, Graphics Design, Web Design" },
+    { name: "The Digital School", detail: "Klacify App, CBT, Online School, LMS" },
+    { name: "Soft Skills Training", detail: "Soft skills training" },
+    { name: "Teachers Training Academy (TTA)", detail: "Teacher training" },
+    { name: "School Capacity Development (SCD) Trainings", detail: "Trainings that build the capacity of schools" }
+  ];
+
+  var PAGE_TITLES = {
+    home: "Education, Technology & Teacher Training",
+    about: "About",
+    services: "Services",
+    products: "Products",
+    departments: "Departments",
+    contact: "Contact"
+  };
+  var BASE_TITLE = "Dartolz Global Limited";
+  var DEFAULT_PAGE = "home";
+  var pendingService = "";
+
+  /* ---------- Year ---------- */
+  var yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---------- Services cards ---------- */
+  var grid = document.getElementById("services-grid");
+  SERVICES.forEach(function (s, i) {
+    var card = document.createElement("article");
+    card.className = "card service-card";
+    card.innerHTML =
+      '<span class="service-num">' + String(i + 1).padStart(2, "0") + '</span>' +
+      '<h3></h3><p></p>' +
+      '<a href="#contact" class="btn btn-primary btn-small">Enquire</a>';
+    card.querySelector("h3").textContent = s.name;
+    card.querySelector("p").textContent = s.detail;
+    card.querySelector("a").addEventListener("click", function () {
+      pendingService = s.name;
+    });
+    grid.appendChild(card);
+  });
+
+  /* Product enquire buttons */
+  document.querySelectorAll("[data-enquire]").forEach(function (a) {
+    a.addEventListener("click", function () {
+      pendingService = a.getAttribute("data-enquire");
+    });
+  });
+
+  /* ---------- Contact form (only when configured) ---------- */
+  var slot = document.getElementById("contact-slot");
+  var hasWhatsApp = /^\d{8,15}$/.test(CONTACT.whatsapp || "");
+  var hasEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(CONTACT.email || "");
+  var enquireSelect = null;
+
+  if (slot && (hasWhatsApp || hasEmail)) {
+    slot.innerHTML = "";
+    var form = document.createElement("form");
+    form.className = "contact-form";
+    form.setAttribute("novalidate", "novalidate");
+
+    var optionsHtml = '<option value="">General enquiry</option>';
+    SERVICES.forEach(function (s) {
+      optionsHtml += '<option value="' + s.name.replace(/"/g, "&quot;") + '">' + s.name + '</option>';
+    });
+    optionsHtml += '<option value="Everyday Books for Pre-Schoolers">Everyday Books for Pre-Schoolers</option>';
+    optionsHtml += '<option value="Klacify Books">Klacify Books</option>';
+
+    form.innerHTML =
+      '<label>Full name<input name="name" type="text" autocomplete="name" required></label>' +
+      '<label>Phone or email<input name="contact" type="text" autocomplete="tel" required></label>' +
+      '<label>What are you interested in?<select name="topic">' + optionsHtml + '</select></label>' +
+      '<label>Message<textarea name="message" required></textarea></label>' +
+      '<div class="form-actions"></div>';
+
+    enquireSelect = form.querySelector("select");
+    var actions = form.querySelector(".form-actions");
+
+    function readData() {
+      return {
+        name: form.name.value.trim(),
+        contact: form.contact.value.trim(),
+        topic: enquireSelect.value || "General enquiry",
+        message: form.message.value.trim()
+      };
+    }
+    function isValid(d) { return d.name && d.contact && d.message; }
+    function buildMessage(d) {
+      return "Enquiry from website\n" +
+        "Name: " + d.name + "\n" +
+        "Contact: " + d.contact + "\n" +
+        "Interested in: " + d.topic + "\n\n" +
+        d.message;
+    }
+
+    if (hasWhatsApp) {
+      var wa = document.createElement("button");
+      wa.type = "button";
+      wa.className = "btn btn-whatsapp";
+      wa.textContent = "Send on WhatsApp";
+      wa.addEventListener("click", function () {
+        var d = readData();
+        if (!isValid(d)) { form.reportValidity(); return; }
+        window.open("https://wa.me/" + CONTACT.whatsapp + "?text=" + encodeURIComponent(buildMessage(d)), "_blank", "noopener");
+      });
+      actions.appendChild(wa);
+    }
+
+    if (hasEmail) {
+      var mail = document.createElement("button");
+      mail.type = "button";
+      mail.className = "btn btn-blue";
+      mail.textContent = "Send by email";
+      mail.addEventListener("click", function () {
+        var d = readData();
+        if (!isValid(d)) { form.reportValidity(); return; }
+        window.location.href = "mailto:" + CONTACT.email +
+          "?subject=" + encodeURIComponent("Website enquiry from " + d.name) +
+          "&body=" + encodeURIComponent(buildMessage(d));
+      });
+      actions.appendChild(mail);
+    }
+
+    form.addEventListener("submit", function (e) { e.preventDefault(); });
+    slot.appendChild(form);
+  }
+
+  /* ---------- Router (hash based) ---------- */
+  var pages = {};
+  document.querySelectorAll(".page").forEach(function (p) {
+    pages[p.id.replace("page-", "")] = p;
+  });
+
+  function currentName() {
+    var name = (location.hash || "").replace(/^#/, "");
+    return pages[name] ? name : DEFAULT_PAGE;
+  }
+
+  function render() {
+    var name = currentName();
+
+    Object.keys(pages).forEach(function (key) {
+      pages[key].classList.toggle("active", key === name);
+    });
+
+    document.querySelectorAll("[data-nav]").forEach(function (a) {
+      var on = a.getAttribute("data-nav") === name;
+      a.classList.toggle("is-current", on);
+      if (on) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+
+    if (name === "contact" && enquireSelect && pendingService) {
+      var match = Array.prototype.find.call(enquireSelect.options, function (o) {
+        return o.value === pendingService;
+      });
+      if (match) enquireSelect.value = pendingService;
+      pendingService = "";
+    }
+
+    document.title = name === DEFAULT_PAGE
+      ? BASE_TITLE + " | " + PAGE_TITLES.home
+      : PAGE_TITLES[name] + " | " + BASE_TITLE;
+
+    var main = document.getElementById("app");
+    if (main) main.scrollTop = 0;
+  }
+
+  window.addEventListener("hashchange", render);
+  render();
+
+  /* ---------- 3D tilt for header and footer logos ---------- */
+  var tiltImgs = document.querySelectorAll(".tilt-img");
+  var canTilt = window.matchMedia && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (canTilt) {
+    tiltImgs.forEach(function (img) {
+      var wrap = img.parentNode;
+      wrap.addEventListener("pointermove", function (e) {
+        var r = img.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        img.style.transform = "rotateX(" + (-y * 18).toFixed(2) + "deg) rotateY(" + (x * 18).toFixed(2) + "deg) scale(1.04)";
+      });
+      wrap.addEventListener("pointerleave", function () {
+        img.style.transform = "";
+      });
+    });
+  }
+
+  /* ---------- Logo intro ---------- */
+  var intro = document.getElementById("intro");
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var endTimer = null;
+
+  function finishIntro() {
+    if (!intro || intro.dataset.done) return;
+    intro.dataset.done = "1";
+    clearTimeout(endTimer);
+    intro.classList.add("hide");
+    document.body.classList.remove("intro-on");
+    setTimeout(function () {
+      if (intro && intro.parentNode) intro.parentNode.removeChild(intro);
+    }, 700);
+  }
+
+  if (intro) {
+    if (reduceMotion) {
+      finishIntro();
+      if (intro.parentNode) intro.parentNode.removeChild(intro);
+    } else {
+      endTimer = setTimeout(finishIntro, 3000);
+      intro.addEventListener("click", finishIntro);
+      intro.addEventListener("touchstart", finishIntro, { passive: true });
+      document.addEventListener("keydown", finishIntro, { once: true });
+    }
+  } else {
+    document.body.classList.remove("intro-on");
+  }
+})();
+</script>
+</body>
+</html>
