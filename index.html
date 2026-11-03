@@ -425,6 +425,24 @@
     footer { margin-top: 36px; }
   }
 
+  /* Account and admin */
+  .account-card { margin-top: 18px; }
+  .account-card h3 { margin-bottom: .3em; }
+  .consent { display: flex; gap: 10px; align-items: flex-start; font-size: .92rem; margin: 14px 0; }
+  .consent input { width: 22px; height: 22px; margin-top: 4px; flex: none; }
+  .stack { display: grid; gap: 10px; margin-top: 12px; }
+  .stack .btn { width: 100%; text-align: center; text-decoration: none; }
+  .btn-google { background: var(--white); color: #1f1f1f; border: 1px solid #dadce0; }
+  .btn-google:hover { background: #f5f5f5; }
+  .btn-danger { background: #b42318; color: var(--white); }
+  .btn-danger:hover { background: #912018; }
+  .btn-plain { background: var(--blue-soft); color: var(--blue); }
+  .account-msg { font-size: .9rem; color: #b42318; min-height: 1.2em; margin: 10px 0 0; }
+  .user-card { display: flex; gap: 12px; align-items: center; }
+  .user-card img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }
+  .user-card small { display: block; color: var(--muted); word-break: break-all; }
+  .user-meta { font-size: .88rem; color: var(--muted); margin: 10px 0 0; }
+
   /* ---------- Reduced motion ---------- */
   @media (prefers-reduced-motion: reduce) {
     #intro { display: none !important; }
@@ -586,10 +604,54 @@
           <h2>Enrol or enquire</h2>
           <p class="lead">Tell us what you need and we will get back to you.</p>
         </div>
+        <div class="card account-card" id="account-box">
+          <h3>Sign in with Google</h3>
+          <p>Loading...</p>
+        </div>
       </div>
       <div class="card" id="contact-slot">
         <h3>Dartolz Global Limited</h3>
         <p>RC 1007747</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy notice -->
+  <section class="page" id="page-privacy">
+    <div class="container">
+      <div class="page-head">
+        <span class="eyebrow">Your information</span>
+        <h2>Privacy notice</h2>
+      </div>
+      <div class="card">
+        <h3>Who we are</h3>
+        <p>This website is operated by Dartolz Global Limited (RC 1007747). You can contact us at dartolzglobal@gmail.com.</p>
+        <h3>What we store when you sign in with Google</h3>
+        <p>Your name, email address, profile photo, Google account ID, the time you first signed in, the time you last signed in, and the time you agreed to this notice.</p>
+        <h3>Why we store it</h3>
+        <p>To recognise you when you come back, to follow up on your enquiries, and so that authorised administrators can review who has registered.</p>
+        <h3>Who can see it</h3>
+        <p>Only authorised administrators of Dartolz Global Limited can see the full list of registered users. Each person can see their own record.</p>
+        <h3>Your choices</h3>
+        <p>When signed in, you can use "Delete my data" on the Contact page to remove your record. You can also email us to ask for a copy of your information or for it to be deleted.</p>
+      </div>
+      <p style="margin-top:16px"><a href="#contact">Back to contact</a></p>
+    </div>
+  </section>
+
+  <!-- Admin: registered users (only the admin account can load this) -->
+  <section class="page" id="page-admin">
+    <div class="container">
+      <div class="page-head">
+        <span class="eyebrow">Administrators only</span>
+        <h2>Registered users</h2>
+      </div>
+      <div class="card" id="admin-denied">
+        <p>Sign in with the administrator Google account on the <a href="#contact">Contact</a> page to see registered users.</p>
+      </div>
+      <div id="admin-panel" hidden>
+        <p class="lead" id="admin-count"></p>
+        <div class="grid grid-2" id="admin-list"></div>
       </div>
     </div>
   </section>
@@ -659,7 +721,9 @@
     services: "Services",
     products: "Products",
     departments: "Departments",
-    contact: "Contact"
+    contact: "Contact",
+    privacy: "Privacy notice",
+    admin: "Registered users"
   };
   var BASE_TITLE = "Dartolz Global Limited";
   var DEFAULT_PAGE = "home";
@@ -863,6 +927,242 @@
     document.body.classList.remove("intro-on");
   }
 })();
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect,
+  signOut, onAuthStateChanged, deleteUser
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs,
+  query, orderBy, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBEe89KvzWu9MXHVqZ7cCvQDTZ2UbC72Rw",
+  authDomain: "dartolz-global-limited.firebaseapp.com",
+  projectId: "dartolz-global-limited",
+  storageBucket: "dartolz-global-limited.firebasestorage.app",
+  messagingSenderId: "1005902360426",
+  appId: "1:1005902360426:web:0347d9468ef1241d23bf13"
+};
+
+const ADMIN_EMAIL = "dartolzglobal@gmail.com";
+const CONSENT_KEY = "dartolz_consent_given";
+const FLASH_KEY = "dartolz_flash";
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: "select_account" });
+
+const box = document.getElementById("account-box");
+const adminDenied = document.getElementById("admin-denied");
+const adminPanel = document.getElementById("admin-panel");
+const adminList = document.getElementById("admin-list");
+const adminCount = document.getElementById("admin-count");
+
+/* Small helper that builds elements without innerHTML, so user data can't inject markup */
+function h(tag, attrs, ...kids) {
+  const node = document.createElement(tag);
+  Object.entries(attrs || {}).forEach(([k, v]) => {
+    if (k === "text") node.textContent = v;
+    else if (k === "class") node.className = v;
+    else if (k.startsWith("on")) node.addEventListener(k.slice(2), v);
+    else node.setAttribute(k, v);
+  });
+  kids.filter(Boolean).forEach(k => node.append(k));
+  return node;
+}
+
+function isAdmin(user) {
+  return !!user && (user.email || "").toLowerCase() === ADMIN_EMAIL && user.emailVerified === true;
+}
+
+function fmt(ts) {
+  return ts && ts.toDate ? ts.toDate().toLocaleString("en-GB") : "pending";
+}
+
+/* ---------- Signed-out view ---------- */
+function renderSignedOut() {
+  const flash = sessionStorage.getItem(FLASH_KEY) || "";
+  sessionStorage.removeItem(FLASH_KEY);
+
+  const consent = h("input", { type: "checkbox", id: "consent-box" });
+  const msg = h("p", { class: "account-msg", role: "status", text: flash });
+
+  box.replaceChildren(
+    h("h3", { text: "Sign in with Google" }),
+    h("p", { text: "Sign in to create your account on this site." }),
+    h("label", { class: "consent" },
+      consent,
+      h("span", {},
+        "I have read the ",
+        h("a", { href: "#privacy", text: "privacy notice" }),
+        " and agree that my name, email address and profile photo can be stored."
+      )
+    ),
+    h("div", { class: "stack" },
+      h("button", {
+        class: "btn btn-google", type: "button", text: "Sign in with Google",
+        onclick: () => startSignIn(consent, msg)
+      })
+    ),
+    msg
+  );
+}
+
+async function startSignIn(consent, msg) {
+  if (!consent.checked) {
+    msg.textContent = "Please tick the box to agree to the privacy notice first.";
+    return;
+  }
+  sessionStorage.setItem(CONSENT_KEY, "1");
+  msg.textContent = "";
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (err) {
+    if (err.code === "auth/popup-blocked" || err.code === "auth/operation-not-supported-in-this-environment") {
+      await signInWithRedirect(auth, provider);
+    } else if (err.code !== "auth/popup-closed-by-user" && err.code !== "auth/cancelled-popup-request") {
+      sessionStorage.removeItem(CONSENT_KEY);
+      msg.textContent = "Sign-in did not complete. Please try again.";
+    } else {
+      sessionStorage.removeItem(CONSENT_KEY);
+    }
+  }
+}
+
+/* ---------- Signed-in view ---------- */
+function renderSignedIn(user, flash) {
+  const info = h("div", {},
+    h("strong", { text: user.displayName || "Signed in" }),
+    h("small", { text: user.email || "" })
+  );
+  const row = h("div", { class: "user-card" },
+    user.photoURL ? h("img", { src: user.photoURL, alt: "", referrerpolicy: "no-referrer" }) : null,
+    info
+  );
+  const msg = h("p", { class: "account-msg", role: "status", text: flash || "" });
+
+  const buttons = [];
+  if (isAdmin(user)) {
+    buttons.push(h("a", { class: "btn btn-blue", href: "#admin", text: "View registered users" }));
+  }
+  buttons.push(
+    h("button", { class: "btn btn-plain", type: "button", text: "Sign out", onclick: () => signOut(auth) }),
+    h("button", { class: "btn btn-danger", type: "button", text: "Delete my data", onclick: () => deleteMyData(user, msg) })
+  );
+
+  box.replaceChildren(
+    h("h3", { text: "Your account" }),
+    row,
+    h("div", { class: "stack" }, ...buttons),
+    msg
+  );
+}
+
+async function deleteMyData(user, msg) {
+  if (!confirm("Delete your record and sign you out? This cannot be undone.")) return;
+  try {
+    await deleteDoc(doc(db, "users", user.uid));
+  } catch (e) {
+    msg.textContent = "We could not delete your record. Please try again, or email dartolzglobal@gmail.com.";
+    return;
+  }
+  try {
+    await deleteUser(user);
+    sessionStorage.setItem(FLASH_KEY, "Your record has been deleted.");
+  } catch (e) {
+    // Firebase asks for a recent sign-in before deleting the Google sign-in itself
+    await signOut(auth);
+    sessionStorage.setItem(FLASH_KEY, "Your record has been deleted. To remove your sign-in too, email dartolzglobal@gmail.com.");
+  }
+}
+
+/* ---------- Saving users to Firestore ---------- */
+async function saveUser(user) {
+  const ref = doc(db, "users", user.uid);
+  const snap = await getDoc(ref);
+  const data = {
+    uid: user.uid,
+    name: user.displayName || "",
+    email: user.email || "",
+    photo: user.photoURL || "",
+    lastSignIn: serverTimestamp()
+  };
+  if (!snap.exists()) {
+    // New users must have agreed to the privacy notice at sign-in
+    if (sessionStorage.getItem(CONSENT_KEY) !== "1") return false;
+    data.firstSignIn = serverTimestamp();
+    data.consentAt = serverTimestamp();
+  }
+  await setDoc(ref, data, { merge: true });
+  sessionStorage.removeItem(CONSENT_KEY);
+  return true;
+}
+
+/* ---------- Admin list ---------- */
+async function loadUsers() {
+  if (!isAdmin(auth.currentUser)) return;
+  adminList.replaceChildren(h("p", { text: "Loading..." }));
+  try {
+    const snap = await getDocs(query(collection(db, "users"), orderBy("lastSignIn", "desc")));
+    adminCount.textContent = snap.size + " registered user" + (snap.size === 1 ? "" : "s");
+    const cards = [];
+    snap.forEach(d => {
+      const u = d.data();
+      cards.push(h("div", { class: "card" },
+        h("div", { class: "user-card" },
+          u.photo ? h("img", { src: u.photo, alt: "", referrerpolicy: "no-referrer" }) : null,
+          h("div", {},
+            h("strong", { text: u.name || "(no name)" }),
+            h("small", { text: u.email || "" })
+          )
+        ),
+        h("p", { class: "user-meta", text: "First sign-in: " + fmt(u.firstSignIn) }),
+        h("p", { class: "user-meta", text: "Last sign-in: " + fmt(u.lastSignIn) }),
+        h("small", { text: "ID: " + (u.uid || d.id) })
+      ));
+    });
+    adminList.replaceChildren(...(cards.length ? cards : [h("p", { text: "No users have signed in yet." })]));
+  } catch (e) {
+    adminList.replaceChildren(h("p", { class: "account-msg", text: "Could not load users. Check the Firestore rules and try again." }));
+  }
+}
+
+window.addEventListener("hashchange", () => {
+  if (location.hash === "#admin") loadUsers();
+});
+
+/* ---------- Auth state ---------- */
+onAuthStateChanged(auth, async (user) => {
+  const allowed = isAdmin(user);
+  adminDenied.hidden = allowed;
+  adminPanel.hidden = !allowed;
+
+  if (!user) {
+    renderSignedOut();
+    return;
+  }
+
+  let saved = false;
+  try {
+    saved = await saveUser(user);
+  } catch (e) {
+    saved = false;
+  }
+  if (!saved) {
+    sessionStorage.setItem(FLASH_KEY, "To create your account, tick the privacy box and sign in again.");
+    await signOut(auth);
+    return;
+  }
+
+  renderSignedIn(user);
+  if (location.hash === "#admin") loadUsers();
+});
 </script>
 </body>
 </html>

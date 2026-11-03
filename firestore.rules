@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Only the verified administrator Google account counts as admin
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == "dartolzglobal@gmail.com"
+        && request.auth.token.email_verified == true;
+    }
+
+    match /users/{userId} {
+      // A person can read their own record; the admin can read every record
+      allow read: if request.auth != null
+        && (request.auth.uid == userId || isAdmin());
+
+      // A person can create their own record, only if they agreed to the privacy notice
+      allow create: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.uid == userId
+        && request.resource.data.consentAt != null;
+
+      // A person can update their own record, but cannot change their ID, consent time or first sign-in time
+      allow update: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.uid == userId
+        && request.resource.data.consentAt == resource.data.consentAt
+        && request.resource.data.firstSignIn == resource.data.firstSignIn;
+
+      // A person can delete their own record
+      allow delete: if request.auth != null
+        && request.auth.uid == userId;
+    }
+
+    // Everything else is closed
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
